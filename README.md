@@ -1,8 +1,8 @@
-# Enigma
+# Enigma (Still Prototype)
 
 ## Overview
 
-Enigma is a decentralized AI Coding Assistant that using **Qwen 2.5 Coder 32B Instruct** and built on the Internet Computer Protocol (ICP). Our mission is to leveraging the capabilities, secure and reliability of ICP's DeAI and explore its potential to enhance the AI Coding Assistant.
+Enigma is a decentralized AI Coding Assistant that using **Qwen 2.5 Coder 32B Instruct** and built on the Internet Computer Protocol (ICP). Our mission is to leveraging the capabilities, secure and reliability of ICP's DeAI and explore its potential to enhance the AI Coding Assistant to build smart contract solution.
 
 Powered by the Internet Computer Protocol, Enigma provides a secure, scalable, and decentralized infrastructure.
 This README provides guidance on setting up and running the application.
@@ -62,8 +62,8 @@ After deployment, you can access the local preview of the app using the links pr
 
 ```bash
 
-Frontend canister via browser dfinity_js_frontend: http://127.0.0.1:4943/?canisterId=bd3sg-teaaa-aaaaa-qaaba-cai
-Backend canister via Candid interface dfinity_js_backend: http://127.0.0.1:4943/?canisterId=br5f7-7uaaa-aaaaa-qaaca-cai&id=bkyz2-fmaaa-aaaaa-qaaaq-cai
+Frontend canister via browser enigma_frontend: http://127.0.0.1:4943/?canisterId=bd3sg-teaaa-aaaaa-qaaba-cai
+Backend canister via Candid interface enigma_backend: http://127.0.0.1:4943/?canisterId=br5f7-7uaaa-aaaaa-qaaca-cai&id=bkyz2-fmaaa-aaaaa-qaaaq-cai
 internet_identity: http://127.0.0.1:4943/?canisterId=br5f7-7uaaa-aaaaa-qaaca-cai&id=be2us-64aaa-aaaaa-qaabq-cai
 
 ```
@@ -75,13 +75,13 @@ You can deploy individual parts of the app separately:
 - Deploy only the backend:
 
 ```sh
-dfx deploy dfinity_js_backend
+dfx deploy enigma_js_backend
 ```
 
 - Deploy only the frontend:
 
 ```sh
-dfx deploy dfinity_js_frontend
+dfx deploy enigma_frontend
 
 ```
 
@@ -93,4 +93,4 @@ npm start
 
 ## **Troubleshooting**
 
-If you encounter any issues, refer to this [documentation](https://demergent-labs.github.io/azle/deployment.html#common-deployment-issues) or reach out to [me](https://github.com/Jonath-z).
+If you encounter any issues, refer to this [documentation](https://demergent-labs.github.io/azle/deployment.html#common-deployment-issues) or reach out to [me](https://github.com/cedsbstn).
