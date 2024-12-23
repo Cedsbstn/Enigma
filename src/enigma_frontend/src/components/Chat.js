@@ -10,7 +10,7 @@ import { encryptData } from "../utils/encryptData";
 
 export default function Chat() {
   const [question, setQuestion] = useState("");
-  const [openaiKey, setOpenaiKey] = useState("");
+  const [togetherKey, settogetherKey] = useState("");
   const { loading, chatCompletion, chatMessage, setChatMessage } = useApi();
 
   const updateChatMessage = async () => {
@@ -30,9 +30,9 @@ export default function Chat() {
       return;
     }
 
-    const openaiKey = localStorage.getItem("icp-dai-open-ai");
-    if (!openaiKey) {
-      toast.error("No openai key found");
+    const togetherKey = localStorage.getItem("icp-dai-open-ai");
+    if (!togetherKey) {
+      toast.error("No together key found");
       return;
     }
 
@@ -48,20 +48,20 @@ export default function Chat() {
     updateChatMessage();
   }, []);
 
-  const onValidateOpenaiAPI = (e) => {
-    if (e.target.value.match(/^sk-[a-zA-Z0-9]{32,}$/)) {
-      setOpenaiKey(e.target.value);
+  const onValidatetogetherAPI = (e) => {
+    if (e.target.value.match(/^[a-zA-Z0-9]+$/)) {
+      settogetherKey(e.target.value);
     } else {
-      setOpenaiKey("");
+      settogetherKey("");
     }
   };
 
-  const onSaveOpenaiKey = () => {
-    if (!openaiKey) return toast.error("Invalid Openai key");
-    const encryptedApiKey = encryptData(openaiKey);
+  const onSavetogetherKey = () => {
+    if (!togetherKey) return toast.error("Invalid together key");
+    const encryptedApiKey = encryptData(togetherKey);
     localStorage.setItem("icp-dai-open-ai", encryptedApiKey);
-    toast.success("Openai key successfully saved and crypted");
-    setOpenaiKey("");
+    toast.success("together key successfully saved and crypted");
+    settogetherKey("");
   };
 
   return (
@@ -77,12 +77,12 @@ export default function Chat() {
       </div>
       <div style={{ display: "flex", gap: 10 }}>
         <TextInput
-          onChange={onValidateOpenaiAPI}
-          placeholder="Pass your Openai API key here..."
+          onChange={onValidatetogetherAPI}
+          placeholder="Pass your together API key here..."
         />
         <button
           className="auth-button auth-button__hover"
-          onClick={onSaveOpenaiKey}
+          onClick={onSavetogetherKey}
         >
           Save
         </button>
