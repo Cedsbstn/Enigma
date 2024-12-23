@@ -1,6 +1,6 @@
 import CryptoJS from "crypto-js";
 
-const SECRET_KEY = "icp-dai-open-ai";
+const SECRET_KEY = "icp-dai-chatbot";
 export function encryptData(data) {
   if (!data) return;
   return CryptoJS.AES.encrypt(JSON.stringify(data), SECRET_KEY).toString();
