@@ -8,87 +8,76 @@ const endpoints = {
   deleteConversation: (userIdentity) => `conversation/${userIdentity}`,
 };
 
-export async function createConversation(userIdentity) {
+// Function to create headers without Authorization
+function createHeaders() {
+  return {
+    "Content-Type": "application/json",
+  };
+}
+
+// Function to handle fetch requests
+async function fetchData(url, options) {
   try {
-    const response = await fetch(`${baseUrl}/${endpoints.createConversation}`, {
-      method: "PUT",
-      headers: [["Content-Type", "Authorization "]],
-      body: JSON.stringify({ userIdentity }),
-    });
-
+    const response = await fetch(url, options);
     if (!response.ok) {
-      throw await response.json();
+      const errorData = await response.json();
+      throw new Error(`HTTP error! Status: ${response.status}, Message: ${errorData.message || 'Unknown error'}`);
     }
-
     return await response.json();
   } catch (error) {
-    console.log(error);
+    console.error("Fetch error:", error);
+    throw error; // Re-throw the error for further handling if needed
   }
+}
+
+export async function createConversation(userIdentity) {
+  const headers = createHeaders();
+
+  const response = await fetchData(`${baseUrl}/${endpoints.createConversation}`, {
+    method: "PUT",
+    headers,
+    body: JSON.stringify({ userIdentity }),
+  });
+
+  return response;
 }
 
 export async function getConversation(userIdentity) {
-  try {
-    const response = await fetch(
-      `${baseUrl}/${endpoints.getConversation(userIdentity)}`,
-      {
-        headers: [["Content-Type", "Authorization "]],
-      }
-    );
+  const headers = createHeaders();
 
-    if (!response.ok) {
-      throw await response.json();
-    }
+  const response = await fetchData(`${baseUrl}/${endpoints.getConversation(userIdentity)}`, {
+    headers,
+  });
 
-    return await response.json();
-  } catch (error) {
-    console.log(error);
-  }
+  return response;
 }
 
 export async function addMessageToConversation(message) {
-  try {
-    const userIdentity = window.auth.principalText;
-    const conversationId = localStorageController("conversation")?.id;
+  const headers = createHeaders();
 
-    const response = await fetch(
-      `${baseUrl}/${endpoints.addMessageToConversation}`,
-      {
-        method: "POST",
-        headers: [["Content-Type", "Authorization "]],
-        body: JSON.stringify({
-          userIdentity,
-          conversationId,
-          message,
-        }),
-      }
-    );
+  const userIdentity = window.auth.principalText;
+  const conversationId = localStorageController("conversation")?.id;
 
-    if (!response.ok) {
-      throw await response.json();
-    }
+  const response = await fetchData(`${baseUrl}/${endpoints.addMessageToConversation}`, {
+    method: "POST",
+    headers,
+    body: JSON.stringify({
+      userIdentity,
+      conversationId,
+      message,
+    }),
+  });
 
-    return await response.json();
-  } catch (error) {
-    console.log(error);
-  }
+  return response;
 }
 
 export async function deleteConversation(userIdentity) {
-  try {
-    const response = fetch(
-      `${baseUrl}/${endpoints.deleteConversation(userIdentity)}`,
-      {
-        method: "DELETE",
-        headers: [["Content-Type", "Authorization "]],
-      }
-    );
+  const headers = createHeaders();
 
-    if (!response.ok) {
-      throw await response.json();
-    }
+  const response = await fetchData(`${baseUrl}/${endpoints.deleteConversation(userIdentity)}`, {
+    method: "DELETE",
+    headers,
+  });
 
-    return await response.json();
-  } catch (error) {
-    console.log(error);
-  }
+  return response;
 }
