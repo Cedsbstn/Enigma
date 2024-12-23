@@ -20,7 +20,7 @@ const useApi = () => {
       together = new Together({ apiKey });
       setLoading(true);
       await addMessageToConversation(payload.at(-1));
-      const result = await together.chat.completions.create({
+      const response = await together.chat.completions.create({
         messages: payload.map((message) => ({
           content: message.content,
           role: message.role,
