@@ -11,8 +11,6 @@ This README provides guidance on setting up and running the application.
 
 ### **Frontend Canister**
 
-### Setup
-
 After setting up the frontend credentials, ensure that you have the **`dfx`** command-line tool installed on your computer. Check its version with the following command:
 
 ```bash
