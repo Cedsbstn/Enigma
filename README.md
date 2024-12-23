@@ -92,7 +92,7 @@ npm start
 - Jonath-z (Source Template)
 
 ## Developers
-- Cedric Sebastian - Project Lead, AI Engineer, web3 Engineer
+- Cedric Sebastian - Project Lead, AI Engineer, Web3 Engineer
 - Edwardus Eligius - Web Developer
 - Justin Ebenezer - Product Manager
 
