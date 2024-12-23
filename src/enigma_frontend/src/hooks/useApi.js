@@ -10,7 +10,39 @@ const useApi = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const [uploading, setUploading] = useState(false);
-  const together = new Together({ apiKey: decryptData(localStorage.getItem("icp-dai-open-ai")) });
+
+  // Function to get and decrypt the API key
+  const OPEN_AI_API_KEY = () => {
+    const encryptedApiKey = localStorage.getItem("icp-dai-open-ai");
+    if (!encryptedApiKey) {
+      throw new Error("API key not found in localStorage.");
+    }
+    const apiKey = decryptData(encryptedApiKey);
+    if (!apiKey) {
+      throw new Error("Failed to decrypt API key.");
+    }
+    return apiKey;
+  };
+
+  let together;
+  try {
+    const apiKey = OPEN_AI_API_KEY();
+    together = new Together({ apiKey });
+  } catch (err) {
+    setError(err.message);
+    console.error(err);
+    toast.error(err.message);
+    return {
+      data,
+      error,
+      loading,
+      chatCompletion: () => {},
+      uploading,
+      setData,
+      chatMessage,
+      setChatMessage
+    };
+  }
 
   const chatCompletion = useCallback(async (payload) => {
     setLoading(true);
@@ -44,11 +76,15 @@ const useApi = () => {
       setChatMessage((prevMessages) => [...prevMessages, result.choices[0].message]);
     } catch (error) {
       setLoading(false);
-      setError(error);
+      setError(error.message);
+      toast.error(error.message);
     } finally {
       setLoading(false);
     }
   }, []);
+
+  // Debugging: Log the contents of localStorage
+  console.log("localStorage contents:", localStorage.getItem("icp-dai-open-ai"));
 
   return {
     data,
