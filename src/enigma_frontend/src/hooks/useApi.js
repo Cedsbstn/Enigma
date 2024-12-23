@@ -17,14 +17,9 @@ const useApi = () => {
     setLoading(true);
     try {
       await addMessageToConversation(payload.at(-1));
-      const response = await together.chat.completions.create(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": "Bearer" + TOGETHER_API_KEY,
-        },
-        body: JSON.stringify({
+      const response = await together.chat.completions.create({
           messages: payload.map((message) => ({
+            role: message.role || "user",
             content: message.content,
           })),
           model: "Qwen/Qwen2.5-Coder-32B-Instruct",
@@ -35,7 +30,6 @@ const useApi = () => {
           repetition_penalty: 1,
           stop: ["<|im_end|>"],
           stream: true
-        }),
       });
 
       const result = await response.json();
