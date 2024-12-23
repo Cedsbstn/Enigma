@@ -90,6 +90,17 @@ dfx deploy enigma_frontend
 ```sh
 npm start
 ```
+## Credit
+- Jonath-z (Source Template)
+
+## Developers
+- Cedric Sebastian - Project Lead, AI Engineer, web3 Engineer
+- Edwardus Eligius - Web Developer
+- Justin Ebenezer - Product Manager
+
+## License
+All original work licensed under 
+MIT license (LICENSE-MIT or http://opensource.org/licenses/MIT) at your option.
 
 ## **Troubleshooting**
 
