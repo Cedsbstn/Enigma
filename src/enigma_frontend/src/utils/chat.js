@@ -12,7 +12,7 @@ export async function createConversation(userIdentity) {
   try {
     const response = await fetch(`${baseUrl}/${endpoints.createConversation}`, {
       method: "PUT",
-      headers: [["Content-Type", "application/json"]],
+      headers: [["Content-Type", "Authorization "]],
       body: JSON.stringify({ userIdentity }),
     });
 
@@ -31,7 +31,7 @@ export async function getConversation(userIdentity) {
     const response = await fetch(
       `${baseUrl}/${endpoints.getConversation(userIdentity)}`,
       {
-        headers: [["Content-Type", "application/json"]],
+        headers: [["Content-Type", "Authorization "]],
       }
     );
 
@@ -54,7 +54,7 @@ export async function addMessageToConversation(message) {
       `${baseUrl}/${endpoints.addMessageToConversation}`,
       {
         method: "POST",
-        headers: [["Content-Type", "application/json"]],
+        headers: [["Content-Type", "Authorization "]],
         body: JSON.stringify({
           userIdentity,
           conversationId,
@@ -79,7 +79,7 @@ export async function deleteConversation(userIdentity) {
       `${baseUrl}/${endpoints.deleteConversation(userIdentity)}`,
       {
         method: "DELETE",
-        headers: [["Content-Type", "application/json"]],
+        headers: [["Content-Type", "Authorization "]],
       }
     );
 
