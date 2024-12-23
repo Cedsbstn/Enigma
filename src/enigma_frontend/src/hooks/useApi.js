@@ -7,44 +7,48 @@ import Together from "together-ai";
 const useApi = () => {
   const [data, setData] = useState("");
   const [chatMessage, setChatMessage] = useState([]);
-  const [error, setError] = useState();
+  const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const [uploading, setUploading] = useState(false);
   const together = new Together({ apiKey: decryptData(localStorage.getItem("icp-dai-open-ai")) });
-  
+
   const chatCompletion = useCallback(async (payload) => {
-    const url = "https://api.together.xyz/v1/chat/completions";
     setLoading(true);
+    setError(null);
     try {
       await addMessageToConversation(payload.at(-1));
       const response = await together.chat.completions.create({
-          messages: payload.map((message) => ({
-            role: message.role || "user",
-            content: message.content,
-          })),
-          model: "Qwen/Qwen2.5-Coder-32B-Instruct",
-          max_tokens: 8192,
-          temperature: 0.2,
-          top_p: 0.7,
-          top_k: 50,
-          repetition_penalty: 1,
-          stop: ["<|im_end|>"],
-          stream: true
+        messages: payload.map((message) => ({
+          content: message.content,
+          role: message.role || "user"
+        })),
+        model: "Qwen/Qwen2.5-Coder-32B-Instruct",
+        max_tokens: 8192,
+        temperature: 0.2,
+        top_p: 0.7,
+        top_k: 50,
+        repetition_penalty: 1,
+        stop: ["\n"],
+        stream: false // Set to false for simplicity, handle streaming if needed
       });
 
-      const result = await response.json();
-
-      if (response.status !== 200) {
-        const message = result.error.message;
+      if (!response.ok) {
+        const result = await response.json();
+        const message = result.error?.message || "An error occurred";
         toast.error(message);
         throw new Error(message);
       }
-    }
-    catch (error) {
+
+      const result = await response.json();
+      setData(result.choices[0].message.content);
+      setChatMessage((prevMessages) => [...prevMessages, result.choices[0].message]);
+    } catch (error) {
       setLoading(false);
       setError(error);
+    } finally {
+      setLoading(false);
     }
-  }, [])
+  }, []);
 
   return {
     data,
@@ -55,7 +59,7 @@ const useApi = () => {
     setData,
     chatMessage,
     setChatMessage
-  }
+  };
 };
 
 export default useApi;
