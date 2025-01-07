@@ -1,5 +1,11 @@
 # Enigma (Still Prototype)
 
+## Our Certificate of Completion 
+
+![image](https://github.com/user-attachments/assets/c35b9dbd-9b9b-4107-a26c-b16f158814ff)
+![image](https://github.com/user-attachments/assets/c14e4265-be3e-4203-89b1-987faf6a8e1f)
+![image](https://github.com/user-attachments/assets/52f0a37e-b8a0-47e3-bd8b-955921fe0bee)
+
 ## Overview
 
 Enigma is a decentralized AI Coding Assistant that using **Qwen 2.5 Coder 32B Instruct** and built on the Internet Computer Protocol (ICP). Our mission is to leveraging the capabilities, secure and reliability of ICP's DeAI and explore its potential to enhance the AI Coding Assistant to build smart contract solution.
